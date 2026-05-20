@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "wrangler pages deploy dist --project-name=sscapital"
+    "deploy": "wrangler pages deploy dist --project-name=sscapital --branch=main"
   },
   "dependencies": {
     "astro": "^6.3.6",

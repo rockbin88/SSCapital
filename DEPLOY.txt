@@ -1,23 +1,52 @@
-CLOUDFLARE PAGES — BUILD SETTINGS
+CLOUDFLARE — FIX AUTH ERROR 10000
 ==================================
 
-In Cloudflare → Workers & Pages → your project → Settings → Builds:
+Your BUILD works. Deploy fails because of CLOUDFLARE_API_TOKEN permissions.
 
-  Build command:      npm run build
-  Build output:       dist
-  Deploy command:     npm run deploy
+TRY THIS FIRST (most common fix)
+--------------------------------
+Cloudflare Dashboard → Workers & Pages → your project
+→ Settings → Environment variables → Production
 
-  (Or paste directly: npx wrangler pages deploy dist --project-name=sscapital)
+  DELETE the variable: CLOUDFLARE_API_TOKEN
 
-  Root directory:     /
-  Node version:       22
+(If you added a custom token, it often lacks "Pages Edit" scope.
+ Cloudflare's built-in Git token works better — or use GitHub Actions below.)
 
-IMPORTANT
----------
-  ✓ USE:  wrangler pages deploy dist     (static site upload)
-  ✗ AVOID: wrangler deploy               (Workers mode — breaks homepage)
+Then set Deploy command to:  true
 
-If your Cloudflare project name is NOT "sscapital", change it in package.json
-"deploy" script to match (Dashboard → project name).
+Keep:
+  Build command:     npm run build
+  Build output:      dist
 
-After git push, Cloudflare rebuilds automatically.
+Retry deployment. If the site still doesn't appear, use GitHub Actions (below).
+
+OPTION B — NEW API TOKEN (if you must keep custom token)
+--------------------------------------------------------
+1. https://dash.cloudflare.com/profile/api-tokens
+2. Create Token → template "Edit Cloudflare Pages"
+3. Add to GitHub repo secrets (for Actions) OR Cloudflare env vars:
+   CLOUDFLARE_API_TOKEN = new token
+   CLOUDFLARE_ACCOUNT_ID = bcb5cb3fb3182da2e98b8ce6da171958
+
+OPTION C — GITHUB ACTIONS DEPLOY (recommended backup)
+-----------------------------------------------------
+1. GitHub → rockbin88/SSCapital → Settings → Secrets → Actions
+2. New secrets:
+   CLOUDFLARE_API_TOKEN  (token with "Cloudflare Pages → Edit")
+   CLOUDFLARE_ACCOUNT_ID = bcb5cb3fb3182da2e98b8ce6da171958
+
+3. Cloudflare build settings:
+   Deploy command:  true
+   (GitHub Actions in .github/workflows/deploy.yml does the real deploy)
+
+4. git push → Actions tab → watch "Deploy to Cloudflare Pages"
+
+OPTION D — CLASSIC PAGES PROJECT (no wrangler deploy)
+-----------------------------------------------------
+Workers & Pages → Create → Pages → Connect to Git
+  Build: npm run build
+  Output: dist
+  Deploy command: (empty if allowed)
+
+Use *.pages.dev URL, not *.workers.dev
