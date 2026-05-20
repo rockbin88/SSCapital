@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ResearchListItem from "../../components/ResearchListItem.astro";
+import Pagination from "../../components/Pagination.astro";
+import { getAllPosts, getPostsForPage, getTotalPages, PAGE_SIZE } from "../../lib/research";
+
+const currentPage = 1;
+const posts = getPostsForPage(currentPage);
+const totalPages = getTotalPages();
+const totalPosts = getAllPosts().length;
+---
+
+<Layout
+  title="Research"
+  description="Contrarian market notes from SS Capital."
+  current="research"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">RESEARCH</p>
+    <h1 class="nes-text is-primary page-title" style="font-size: 0.85rem;">OFF THE FEED</h1>
+    <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">
+      Short notes where our work diverges from mainstream media. {totalPosts} post{totalPosts === 1 ? "" : "s"} · {PAGE_SIZE} per page.
+    </p>
+  </section>
+
+  <div class="research-list">
+    {posts.map((post) => (
+      <ResearchListItem post={post} />
+    ))}
+  </div>
+
+  <Pagination currentPage={currentPage} totalPages={totalPages} />
+</Layout>

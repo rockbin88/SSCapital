@@ -1,0 +1,112 @@
+---
+import type { PnLData } from "../lib/pnl";
+import { formatPct, formatUsd } from "../lib/pnl";
+
+interface Props {
+  data: PnLData;
+}
+
+const { data } = Astro.props;
+const { summary, equityCurve } = data;
+
+const W = 480;
+const H = 200;
+const pad = { top: 16, right: 12, bottom: 32, left: 56 };
+const plotW = W - pad.left - pad.right;
+const plotH = H - pad.top - pad.bottom;
+
+const equities = equityCurve.map((p) => p.equity);
+const minE = Math.min(...equities);
+const maxE = Math.max(...equities);
+const range = maxE - minE || 1;
+
+const coords = equityCurve.map((p, i) => {
+  const x = pad.left + (equityCurve.length === 1 ? 0 : (i / (equityCurve.length - 1)) * plotW);
+  const y = pad.top + (1 - (p.equity - minE) / range) * plotH;
+  return { x, y, ...p };
+});
+
+const linePath = coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x.toFixed(1)} ${c.y.toFixed(1)}`).join(" ");
+const areaPath = `${linePath} L ${coords[coords.length - 1].x.toFixed(1)} ${(pad.top + plotH).toFixed(1)} L ${coords[0].x.toFixed(1)} ${(pad.top + plotH).toFixed(1)} Z`;
+
+const yTicks = [minE, minE + range * 0.5, maxE];
+const isPositive = summary.ytdReturnUsd >= 0;
+const startLabel = equityCurve[0]?.date?.slice(5) ?? "";
+const endLabel = equityCurve[equityCurve.length - 1]?.date?.slice(5) ?? "";
+---
+
+<section class="nes-container is-dark with-title section-gap ytd-dashboard">
+  <p class="title">YTD PERFORMANCE</p>
+
+  <div class="metrics-grid">
+    <div class="metric-box nes-container is-dark">
+      <p class="metric-label nes-text is-disabled">YTD RETURN %</p>
+      <p class={`metric-value nes-text ${isPositive ? "is-success" : "is-error"}`}>
+        {formatPct(summary.ytdReturnPct)}
+      </p>
+    </div>
+    <div class="metric-box nes-container is-dark">
+      <p class="metric-label nes-text is-disabled">YTD RETURN $</p>
+      <p class={`metric-value nes-text ${isPositive ? "is-success" : "is-error"}`}>
+        {formatUsd(summary.ytdReturnUsd)}
+      </p>
+    </div>
+    <div class="metric-box nes-container is-dark">
+      <p class="metric-label nes-text is-disabled">TRADES</p>
+      <p class="metric-value nes-text is-primary">{summary.tradesExecuted}</p>
+    </div>
+  </div>
+
+  {summary.asOf && (
+    <p class="nes-text is-disabled chart-as-of">As of {summary.asOf}</p>
+  )}
+
+  <div class="chart-wrap" role="img" aria-label="YTD equity curve">
+    <svg
+      class="equity-chart"
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="xMidYMid meet"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- grid -->
+      {yTicks.map((tick) => {
+        const y = pad.top + (1 - (tick - minE) / range) * plotH;
+        return (
+          <g>
+            <line
+              x1={pad.left}
+              y1={y}
+              x2={W - pad.right}
+              y2={y}
+              class="chart-grid"
+            />
+            <text x={pad.left - 6} y={y + 4} class="chart-label" text-anchor="end">
+              {(tick / 1000).toFixed(0)}k
+            </text>
+          </g>
+        );
+      })}
+
+      <path d={areaPath} class="chart-area" />
+      <path d={linePath} class="chart-line" fill="none" />
+
+      {coords.map((c, i) => (
+        <rect
+          x={c.x - 2}
+          y={c.y - 2}
+          width="4"
+          height="4"
+          class="chart-dot"
+          opacity={i === 0 || i === coords.length - 1 ? 1 : 0}
+        />
+      ))}
+
+      <text x={pad.left} y={H - 8} class="chart-label">{startLabel}</text>
+      <text x={W - pad.right} y={H - 8} class="chart-label" text-anchor="end">{endLabel}</text>
+    </svg>
+  </div>
+
+  <p class="nes-text is-disabled chart-hint">
+    Update <code>src/data/pnl.csv</code> (curve) or <code>pnl.json</code> (metrics) from Google Sheets.
+  </p>
+</section>

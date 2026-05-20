@@ -1,0 +1,47 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { formatPostDate, getAllPosts, getPostBySlug } from "../../lib/research";
+
+export function getStaticPaths() {
+  return getAllPosts().map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = getPostBySlug(slug!);
+
+if (!post) {
+  return Astro.redirect("/research/");
+}
+---
+
+<Layout
+  title={post.title}
+  description={post.excerpt}
+  current="research"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">{post.tag}</p>
+    <p class="nes-text is-disabled" style="font-size: 0.45rem; margin: 0;">
+      {formatPostDate(post.publishedAt)} · {post.readTime}
+    </p>
+    <h1 class="nes-text is-warning page-title" style="font-size: 0.75rem; line-height: 1.6;">
+      {post.title}
+    </h1>
+    <p class="nes-text" style="font-size: 0.55rem; line-height: 1.8;">{post.excerpt}</p>
+
+    <div class="nes-balloon from-left is-dark" style="margin-top: 1.25rem;">
+      <p style="font-size: 0.5rem; line-height: 1.8; margin: 0;">
+        <span class="nes-text is-error">MEDIA:</span> {post.mainstream}
+      </p>
+      <p style="font-size: 0.5rem; line-height: 1.8; margin: 0.5rem 0 0;">
+        <span class="nes-text is-success">SS:</span> {post.ss}
+      </p>
+    </div>
+
+    <a href="/research/" style="margin-top: 1.25rem; display: inline-block;">
+      <button type="button" class="nes-btn">← All research</button>
+    </a>
+  </section>
+</Layout>

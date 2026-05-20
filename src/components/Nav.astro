@@ -1,0 +1,32 @@
+---
+interface Props {
+  current: "home" | "about" | "strategy" | "research";
+}
+
+const { current } = Astro.props;
+
+const links = [
+  { id: "home" as const, href: "/", label: "Home" },
+  { id: "about" as const, href: "/about", label: "About" },
+  { id: "strategy" as const, href: "/strategy", label: "Strategy" },
+  { id: "research" as const, href: "/research", label: "Research" },
+];
+---
+
+<header class="site-header">
+  <div class="nes-container is-dark">
+    <a href="/" style="text-decoration: none; color: inherit;">
+      <p class="nes-text is-primary" style="margin: 0; font-size: 0.75rem;">SS CAPITAL</p>
+      <p class="nes-text" style="margin: 0.25rem 0 0; font-size: 0.5rem;">SLOW &amp; STEADY</p>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      {links.map((link) => (
+        <a href={link.href} class:list={[{ "is-active": current === link.id }]}>
+          <button type="button" class:list={["nes-btn", { "is-primary": current === link.id }]}>
+            {link.label}
+          </button>
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

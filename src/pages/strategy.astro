@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const principles = [
+  { name: "SLOW", type: "is-primary", text: "Compounding favors survivors. Position sizing beats lottery trades." },
+  { name: "STEADY", type: "is-success", text: "Process over outcome. Repeatable edge, not viral trades." },
+  { name: "CONTRARIAN", type: "is-warning", text: "When everyone agrees, it's in the price. We publish the divergence." },
+];
+---
+
+<Layout
+  title="Strategy"
+  description="SS Capital trading principles."
+  current="strategy"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">STRATEGY</p>
+    <h1 class="nes-text is-primary page-title" style="font-size: 0.85rem;">HOW WE TRADE</h1>
+    <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">
+      Options-first, defined risk. Volatility regimes drive structure—sell premium when fear is rich, buy convexity when complacency rules.
+    </p>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">PRINCIPLES</p>
+    {principles.map((p) => (
+      <div class="timeline-item">
+        <span class="nes-badge" style="margin-bottom: 0.5rem; display: inline-block;">
+          <span class={p.type}>{p.name}</span>
+        </span>
+        <p class="nes-text is-disabled" style="font-size: 0.55rem; line-height: 1.8; margin: 0;">{p.text}</p>
+      </div>
+    ))}
+  </section>
+</Layout>

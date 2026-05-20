@@ -1,0 +1,45 @@
+---
+import "nes.css/css/nes.min.css";
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  current: "home" | "about" | "strategy" | "research";
+}
+
+const {
+  title,
+  description = "SS Capital — options desk & contrarian market research.",
+  current,
+} = Astro.props;
+
+const pageTitle = title === "Home" ? "SS Capital | Slow & Steady" : `${title} | SS Capital`;
+---
+
+<!doctype html>
+<html lang="en" class="nes-pointer">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Nav current={current} />
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p class="nes-text is-disabled">© {new Date().getFullYear()} SS CAPITAL · NOT INVESTMENT ADVICE</p>
+    </footer>
+  </body>
+</html>

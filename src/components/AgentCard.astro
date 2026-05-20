@@ -1,0 +1,25 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  description: string;
+  image: string;
+  badgeClass?: string;
+}
+
+const { name, role, description, image, badgeClass = "is-success" } = Astro.props;
+---
+
+<article class="agent-card nes-container is-dark">
+  <div class="agent-portrait">
+    <img src={image} alt={`${name} — ${role}`} width="96" height="96" loading="lazy" />
+  </div>
+  <div class="agent-info">
+    <div class="agent-header">
+      <h3 class="nes-text is-primary agent-name">{name}</h3>
+      <span class="nes-badge"><span class={badgeClass}>ACTIVE</span></span>
+    </div>
+    <p class="nes-text is-warning agent-role">{role}</p>
+    <p class="nes-text is-disabled agent-desc">{description}</p>
+  </div>
+</article>

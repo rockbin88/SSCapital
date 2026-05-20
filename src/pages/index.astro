@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import YtdDashboard from "../components/YtdDashboard.astro";
+import { getPnLData } from "../lib/pnl";
+import { formatPostDate, getLatestPost } from "../lib/research";
+
+const pnl = getPnLData();
+const latest = getLatestPost();
+---
+
+<Layout title="Home" current="home">
+  <section class="nes-container is-dark with-title">
+    <p class="title">WELCOME</p>
+    <h1 class="nes-text is-primary page-title" style="font-size: 1rem; line-height: 1.6;">
+      SLOW &amp; STEADY
+    </h1>
+    <p class="nes-text" style="font-size: 0.65rem; line-height: 1.8;">
+      Options trading desk &amp; market research. From a small account to seven figures—powered by an army of agents and views off the mainstream feed.
+    </p>
+  </section>
+
+  <YtdDashboard data={pnl} />
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">DESK</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+      <span class="nes-badge"><span class="is-primary">SLOW</span></span>
+      <span class="nes-badge"><span class="is-success">STEADY</span></span>
+      <span class="nes-badge"><span class="is-warning">CONTRARIAN</span></span>
+    </div>
+    <p class="nes-text" style="font-size: 0.6rem; margin-top: 1rem; line-height: 1.8;">
+      Defined-risk options. Process over lottery trades. Research that stress-tests the headline.
+    </p>
+  </section>
+
+  {latest && (
+    <section class="nes-container is-dark with-title section-gap">
+      <p class="title">LATEST</p>
+      <p class="nes-text is-disabled" style="font-size: 0.5rem;">{formatPostDate(latest.publishedAt)}</p>
+      <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">{latest.excerpt}</p>
+      <a href={`/research/${latest.slug}/`} style="margin-top: 0.75rem; display: inline-block;">
+        <button type="button" class="nes-btn is-warning">Read research →</button>
+      </a>
+    </section>
+  )}
+</Layout>

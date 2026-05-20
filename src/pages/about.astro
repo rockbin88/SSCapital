@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AgentCard from "../components/AgentCard.astro";
+
+const agents = [
+  {
+    name: "ATHENA",
+    role: "Equity index option trader",
+    description: "SPX, NDX, RUT structures. Index vol surfaces, dealer gamma, and macro event hedging.",
+    image: "/agents/athena-pixel.png",
+    badgeClass: "is-primary",
+  },
+  {
+    name: "STERLING",
+    role: "Equity option trader",
+    description: "Single-name flow and earnings vol. Directional and defined-risk setups on equities.",
+    image: "/agents/sterling-pixel.png",
+    badgeClass: "is-success",
+  },
+  {
+    name: "OIKOS",
+    role: "Economist",
+    description: "Rates, FX, and cross-asset context. Stress-tests the narrative before the desk puts risk on.",
+    image: "/agents/oikos-pixel.png",
+    badgeClass: "is-warning",
+  },
+];
+---
+
+<Layout
+  title="About"
+  description="SS Capital — options desk and AI agent team."
+  current="about"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">ABOUT</p>
+    <h1 class="nes-text is-primary page-title" style="font-size: 0.85rem;">SS CAPITAL</h1>
+    <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">
+      Slow &amp; Steady is an options trading desk and market research shop. We compound capital patiently and publish where our work diverges from cable news.
+    </p>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">THE DESK</p>
+    <p class="nes-text" style="font-size: 0.55rem; line-height: 1.8; margin-bottom: 1.25rem;">
+      Three AI agents run the options desk—index vol, single-name equities, and macro research.
+    </p>
+    <div class="agent-grid">
+      {agents.map((agent) => (
+        <AgentCard {...agent} />
+      ))}
+    </div>
+  </section>
+</Layout>

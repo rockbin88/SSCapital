@@ -1,0 +1,24 @@
+---
+import type { ResearchPost } from "../lib/research";
+import { formatPostDate } from "../lib/research";
+
+interface Props {
+  post: ResearchPost;
+}
+
+const { post } = Astro.props;
+const href = `/research/${post.slug}/`;
+---
+
+<article class="research-list-item nes-container is-dark">
+  <p class="nes-text is-disabled research-list-meta">
+    {formatPostDate(post.publishedAt)} · {post.readTime} · {post.tag}
+  </p>
+  <h2 class="nes-text is-warning research-list-title">
+    <a href={href}>{post.title}</a>
+  </h2>
+  <p class="nes-text is-disabled research-list-excerpt">{post.excerpt}</p>
+  <a href={href} class="research-list-link">
+    <button type="button" class="nes-btn is-primary">Read →</button>
+  </a>
+</article>

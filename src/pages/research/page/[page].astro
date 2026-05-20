@@ -1,0 +1,42 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import ResearchListItem from "../../../components/ResearchListItem.astro";
+import Pagination from "../../../components/Pagination.astro";
+import { getPostsForPage, getTotalPages, PAGE_SIZE } from "../../../lib/research";
+
+export function getStaticPaths() {
+  const totalPages = getTotalPages();
+  if (totalPages <= 1) return [];
+
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const pageNum = Number(Astro.params.page);
+const currentPage = pageNum;
+const posts = getPostsForPage(currentPage);
+const totalPages = getTotalPages();
+---
+
+<Layout
+  title={`Research · Page ${currentPage}`}
+  description="Contrarian market notes from SS Capital."
+  current="research"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">RESEARCH</p>
+    <h1 class="nes-text is-primary page-title" style="font-size: 0.85rem;">OFF THE FEED</h1>
+    <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">
+      Page {currentPage} of {totalPages} · {PAGE_SIZE} posts per page.
+    </p>
+  </section>
+
+  <div class="research-list">
+    {posts.map((post) => (
+      <ResearchListItem post={post} />
+    ))}
+  </div>
+
+  <Pagination currentPage={currentPage} totalPages={totalPages} />
+</Layout>

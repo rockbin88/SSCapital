@@ -1,0 +1,34 @@
+---
+import { pageUrl } from "../lib/research";
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+}
+
+const { currentPage, totalPages } = Astro.props;
+---
+
+{totalPages > 1 && (
+  <nav class="research-pagination" aria-label="Research pages">
+  {currentPage > 1 ? (
+    <a href={pageUrl(currentPage - 1)}>
+      <button type="button" class="nes-btn">← Prev</button>
+    </a>
+  ) : (
+    <button type="button" class="nes-btn is-disabled" disabled>← Prev</button>
+  )}
+
+  <span class="nes-text is-disabled pagination-label">
+    Page {currentPage} / {totalPages}
+  </span>
+
+  {currentPage < totalPages ? (
+    <a href={pageUrl(currentPage + 1)}>
+      <button type="button" class="nes-btn is-primary">Next →</button>
+    </a>
+  ) : (
+    <button type="button" class="nes-btn is-disabled" disabled>Next →</button>
+  )}
+  </nav>
+)}
