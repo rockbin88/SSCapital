@@ -1,0 +1,23 @@
+CLOUDFLARE PAGES — BUILD SETTINGS
+==================================
+
+In Cloudflare → Workers & Pages → your project → Settings → Builds:
+
+  Build command:      npm run build
+  Build output:       dist
+  Deploy command:     npm run deploy
+
+  (Or paste directly: npx wrangler pages deploy dist --project-name=sscapital)
+
+  Root directory:     /
+  Node version:       22
+
+IMPORTANT
+---------
+  ✓ USE:  wrangler pages deploy dist     (static site upload)
+  ✗ AVOID: wrangler deploy               (Workers mode — breaks homepage)
+
+If your Cloudflare project name is NOT "sscapital", change it in package.json
+"deploy" script to match (Dashboard → project name).
+
+After git push, Cloudflare rebuilds automatically.

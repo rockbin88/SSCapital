@@ -1,7 +1,5 @@
-import { readFileSync, existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 import pnlJson from "../data/pnl.json";
+import pnlCsvRaw from "../data/pnl.csv?raw";
 
 export type EquityPoint = {
   date: string;
@@ -19,8 +17,6 @@ export type PnLData = {
   summary: PnLSummary;
   equityCurve: EquityPoint[];
 };
-
-const dataDir = dirname(fileURLToPath(import.meta.url));
 
 function parseCsv(raw: string): EquityPoint[] {
   const lines = raw.trim().split(/\r?\n/).filter(Boolean);
@@ -46,9 +42,13 @@ function parseCsv(raw: string): EquityPoint[] {
 }
 
 function loadCsvCurve(): EquityPoint[] | null {
-  const csvPath = join(dataDir, "pnl.csv");
-  if (!existsSync(csvPath)) return null;
-  return parseCsv(readFileSync(csvPath, "utf-8"));
+  if (!pnlCsvRaw?.trim()) return null;
+  try {
+    const curve = parseCsv(pnlCsvRaw);
+    return curve.length ? curve : null;
+  } catch {
+    return null;
+  }
 }
 
 function computeSummaryFromCurve(curve: EquityPoint[]): Pick<PnLSummary, "ytdReturnPct" | "ytdReturnUsd" | "asOf"> {
@@ -72,7 +72,6 @@ export function getPnLData(): PnLData {
   const computed = equityCurve.length >= 2 ? computeSummaryFromCurve(equityCurve) : null;
   const fromCsv = Boolean(csvCurve?.length);
 
-  // CSV export auto-updates return % and $ from the curve; trades always from JSON
   const summary: PnLSummary = {
     tradesExecuted: base.summary.tradesExecuted,
     ytdReturnUsd:

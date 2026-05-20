@@ -8,7 +8,7 @@
    |------------|----------|
    | 2026-01-02 | 1000000  |
 
-   Save as `src/data/pnl.csv` (replace the file).
+   Save as `src/data/pnl.csv` (replace the file). Rebuild or push to redeploy.
 
 2. **Metrics** — Edit `src/data/pnl.json` → `summary`:
 
