@@ -3,23 +3,19 @@ CLOUDFLARE — FIX AUTH ERROR 10000
 
 Your BUILD works. Deploy fails because of CLOUDFLARE_API_TOKEN permissions.
 
-TRY THIS FIRST (most common fix)
---------------------------------
-Cloudflare Dashboard → Workers & Pages → your project
-→ Settings → Environment variables → Production
+ERROR: "Project not found" (code 8000007)
+-----------------------------------------
+You have a Worker named sscapital, but NO Pages project with that name.
+The deploy script now auto-creates it. Push latest code and retry.
 
-  DELETE the variable: CLOUDFLARE_API_TOKEN
+OR create manually:
+  Workers & Pages → Create → Pages → project name: sscapital
+  Then connect to Git / retry deploy.
 
-(If you added a custom token, it often lacks "Pages Edit" scope.
- Cloudflare's built-in Git token works better — or use GitHub Actions below.)
-
-Then set Deploy command to:  true
-
-Keep:
+Build settings:
   Build command:     npm run build
   Build output:      dist
-
-Retry deployment. If the site still doesn't appear, use GitHub Actions (below).
+  Deploy command:    npm run deploy
 
 OPTION B — NEW API TOKEN (if you must keep custom token)
 --------------------------------------------------------
