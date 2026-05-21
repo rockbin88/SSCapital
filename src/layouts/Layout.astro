@@ -11,11 +11,11 @@ interface Props {
 
 const {
   title,
-  description = "SS Capital — options desk & contrarian market research.",
+  description = "Wander Tiger — options trading desk & contrarian market research.",
   current,
 } = Astro.props;
 
-const pageTitle = title === "Home" ? "SS Capital | Slow & Steady" : `${title} | SS Capital`;
+const pageTitle = title === "Home" ? "Wander Tiger | Slow & Steady" : `${title} | WANDER TIGER`;
 ---
 
 <!doctype html>
@@ -39,7 +39,7 @@ const pageTitle = title === "Home" ? "SS Capital | Slow & Steady" : `${title} | 
       <slot />
     </main>
     <footer class="site-footer">
-      <p class="nes-text is-disabled">© {new Date().getFullYear()} SS CAPITAL · NOT INVESTMENT ADVICE</p>
+      <p class="nes-text is-disabled">© {new Date().getFullYear()} WANDER TIGER · NOT INVESTMENT ADVICE</p>
     </footer>
   </body>
 </html>
