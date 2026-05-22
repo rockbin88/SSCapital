@@ -52,8 +52,8 @@ const endLabel = equityCurve[equityCurve.length - 1]?.date?.slice(5) ?? "";
       </p>
     </div>
     <div class="metric-box nes-container is-dark">
-      <p class="metric-label nes-text is-disabled">TRADES</p>
-      <p class="metric-value nes-text is-primary">{summary.tradesExecuted}</p>
+      <p class="metric-label nes-text is-disabled">WIN RATE %</p>
+      <p class="metric-value nes-text is-primary">{formatPct(summary.winRatePct)}</p>
     </div>
   </div>
 

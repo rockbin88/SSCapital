@@ -9,7 +9,7 @@ export type EquityPoint = {
 export type PnLSummary = {
   ytdReturnPct: number;
   ytdReturnUsd: number;
-  tradesExecuted: number;
+  winRatePct: number;
   asOf?: string;
 };
 
@@ -73,7 +73,7 @@ export function getPnLData(): PnLData {
   const fromCsv = Boolean(csvCurve?.length);
 
   const summary: PnLSummary = {
-    tradesExecuted: base.summary.tradesExecuted,
+    winRatePct: base.summary.winRatePct ?? 0,
     ytdReturnUsd:
       fromCsv && computed
         ? computed.ytdReturnUsd

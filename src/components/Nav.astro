@@ -1,6 +1,6 @@
 ---
 interface Props {
-  current: "home" | "about" | "strategy" | "research";
+  current: "home" | "about" | "optionDesk" | "personalBanker" | "journal" | "research";
 }
 
 const { current } = Astro.props;
@@ -8,16 +8,18 @@ const { current } = Astro.props;
 const links = [
   { id: "home" as const, href: "/", label: "Home" },
   { id: "about" as const, href: "/about", label: "About" },
-  { id: "strategy" as const, href: "/strategy", label: "Strategy" },
-  { id: "research" as const, href: "/research", label: "Research" },
+  { id: "optionDesk" as const, href: "/option-trading-desk", label: "Option Desk" },
+  { id: "journal" as const, href: "/trade-journal", label: "Journal" },
 ];
 ---
 
 <header class="site-header">
   <div class="nes-container is-dark">
-    <a href="/" style="text-decoration: none; color: inherit;">
-      <p class="nes-text is-primary" style="margin: 0; font-size: 0.75rem;">WANDER TIGER</p>
-      <p class="nes-text" style="margin: 0.25rem 0 0; font-size: 0.5rem;">SLOW &amp; STEADY</p>
+    <a href="/" class="brand-link">
+      <span>
+        <p class="wordmark wordmark-small">WANDER TIGER</p>
+        <p class="nes-text" style="margin: 0.25rem 0 0; font-size: 0.5rem;">AI JOURNEY LOG</p>
+      </span>
     </a>
     <nav class="nav-links" aria-label="Main">
       {links.map((link) => (

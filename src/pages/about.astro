@@ -1,54 +1,41 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AgentCard from "../components/AgentCard.astro";
-
-const agents = [
-  {
-    name: "ATHENA",
-    role: "Equity index option trader",
-    description: "SPX, NDX, RUT structures. Index vol surfaces, dealer gamma, and macro event hedging.",
-    image: "/agents/athena-pixel.png",
-    badgeClass: "is-primary",
-  },
-  {
-    name: "STERLING",
-    role: "Equity option trader",
-    description: "Single-name flow and earnings vol. Directional and defined-risk setups on equities.",
-    image: "/agents/sterling-pixel.png",
-    badgeClass: "is-success",
-  },
-  {
-    name: "OIKOS",
-    role: "Economist",
-    description: "Rates, FX, and cross-asset context. Stress-tests the narrative before the desk puts risk on.",
-    image: "/agents/oikos-pixel.png",
-    badgeClass: "is-warning",
-  },
-];
 ---
 
 <Layout
   title="About"
-  description="Wander Tiger — options desk and AI agent team."
+  description="About the person behind Wander Tiger."
   current="about"
 >
   <section class="nes-container is-dark with-title">
     <p class="title">ABOUT</p>
-    <h1 class="nes-text is-primary page-title" style="font-size: 0.85rem;">WANDER TIGER</h1>
-    <p class="nes-text" style="font-size: 0.6rem; line-height: 1.8;">
-      Wander &amp; Tiger is an options trading desk and market research shop. We compound capital patiently and publish where our work diverges from cable news.
-    </p>
+    <div class="builder-hero">
+      <img src="/brand/builder-pixel.png" alt="Pixel portrait of the builder" width="128" height="128" />
+      <div>
+        <h1 class="nes-text is-primary page-title hero-title">THE BUILDER</h1>
+        <p class="nes-text hero-copy">
+          I am a father of two young kids, based on a sunny island, documenting my
+          journey in exploring AI and agentic AI.
+        </p>
+      </div>
+    </div>
   </section>
 
   <section class="nes-container is-dark with-title section-gap">
-    <p class="title">THE DESK</p>
-    <p class="nes-text" style="font-size: 0.55rem; line-height: 1.8; margin-bottom: 1.25rem;">
-      Three AI agents run the options desk—index vol, single-name equities, and macro research.
-    </p>
-    <div class="agent-grid">
-      {agents.map((agent) => (
-        <AgentCard {...agent} />
-      ))}
+    <p class="title">PROFILE</p>
+    <div class="profile-grid">
+      <div class="nes-container is-dark profile-tile">
+        <p class="nes-text is-warning profile-label">HOME BASE</p>
+        <p class="nes-text is-disabled profile-copy">Sunny island life, with two young kids keeping the real-world benchmark honest.</p>
+      </div>
+      <div class="nes-container is-dark profile-tile">
+        <p class="nes-text is-warning profile-label">BACKGROUND</p>
+        <p class="nes-text is-disabled profile-copy">Chartered Financial Analyst (CFA) with more than a decade in financial services.</p>
+      </div>
+      <div class="nes-container is-dark profile-tile">
+        <p class="nes-text is-warning profile-label">MISSION</p>
+        <p class="nes-text is-disabled profile-copy">Build, test, and document useful AI workflows instead of just reading about them.</p>
+      </div>
     </div>
   </section>
 </Layout>

@@ -16,12 +16,12 @@
    "summary": {
      "ytdReturnPct": 14.2,
      "ytdReturnUsd": 142000,
-     "tradesExecuted": 84,
+     "winRatePct": 64.3,
      "asOf": "2026-05-16"
    }
    ```
 
-   - `tradesExecuted` must be set manually (not computed from the curve).
+   - `winRatePct` must be set manually (not computed from the curve).
    - If you omit `ytdReturnPct` / `ytdReturnUsd`, they are auto-calculated from the first and last `equity` in the curve.
 
 3. Rebuild or refresh dev server: `npm run dev`

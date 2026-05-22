@@ -1,0 +1,109 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AgentCard from "../../components/AgentCard.astro";
+import YtdDashboard from "../../components/YtdDashboard.astro";
+import { getPnLData } from "../../lib/pnl";
+
+const pnl = getPnLData();
+
+const agents = [
+  {
+    name: "ATHENA",
+    role: "Equity index option trader",
+    description: "SPX, NDX, RUT structures. Index vol surfaces, dealer gamma, and macro event hedging.",
+    image: "/agents/athena-pixel.png",
+    badgeClass: "is-primary",
+  },
+  {
+    name: "STERLING",
+    role: "Equity option trader",
+    description: "Single-name flow and earnings vol. Directional and defined-risk setups on equities.",
+    image: "/agents/sterling-pixel.png",
+    badgeClass: "is-success",
+  },
+  {
+    name: "OIKOS",
+    role: "Economist",
+    description: "Rates, FX, and cross-asset context. Stress-tests the narrative before the desk puts risk on.",
+    image: "/agents/oikos-pixel.png",
+    badgeClass: "is-warning",
+  },
+];
+
+const workflow = [
+  "Oikos frames macro regime, rates, catalysts, and consensus narrative.",
+  "Athena scans index volatility, skew, dealer positioning, and market structure.",
+  "Sterling studies single-name flow, event vol, and defined-risk equity setups.",
+  "Signals are converted into trade candidates, journal entries, and risk reviews.",
+];
+
+const infrastructure = [
+  "Google Sheets / CSV exports for PnL and equity curve updates.",
+  "Astro static site for public documentation and low-cost deployment.",
+  "Agent prompts and research notes organized by role and decision workflow.",
+  "Trade journal archive for post-trade review, hypothesis tracking, and lessons learned.",
+];
+
+---
+
+<Layout
+  title="Option Trading Desk"
+  description="Wander Tiger option trading desk project, agents, PnL, workflow, and trade journal."
+  current="optionDesk"
+>
+  <section class="hero-panel nes-container is-dark with-title">
+    <p class="title">PROJECT 01</p>
+    <p class="nes-text is-disabled kicker">AGENTIC AI · OPTIONS · RESEARCH</p>
+    <h1 class="nes-text is-primary page-title hero-title">OPTION TRADING DESK</h1>
+    <p class="nes-text hero-copy">
+      A research and execution support system for equity index options, single-name
+      options, macro context, PnL tracking, and post-trade learning.
+    </p>
+    <div class="hero-actions">
+      <a href="/trade-journal" class="project-link">
+        <button type="button" class="nes-btn is-warning">Open trade journal →</button>
+      </a>
+      <a href="#workflow" class="project-link">
+        <button type="button" class="nes-btn">View workflow</button>
+      </a>
+    </div>
+  </section>
+
+  <YtdDashboard data={pnl} />
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">AGENTS</p>
+    <p class="nes-text compact-copy">
+      Three AI agents run the desk: index vol, single-name options, and macro research.
+    </p>
+    <div class="agent-grid">
+      {agents.map((agent) => (
+        <AgentCard {...agent} />
+      ))}
+    </div>
+  </section>
+
+  <section id="workflow" class="nes-container is-dark with-title section-gap">
+    <p class="title">WORKFLOW</p>
+    <div class="console-list">
+      {workflow.map((item, index) => (
+        <div class="console-row">
+          <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
+          <p class="nes-text is-disabled">{item}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">INFRASTRUCTURE</p>
+    <div class="console-list">
+      {infrastructure.map((item, index) => (
+        <div class="console-row">
+          <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
+          <p class="nes-text is-disabled">{item}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

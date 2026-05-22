@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const trades = [
+  {
+    id: 1,
+    ticker: "SPX",
+    strategy: "Put Credit Spread",
+    profit: "+$1,250",
+    profitPct: "+2.4%",
+  },
+  {
+    id: 2,
+    ticker: "QQQ",
+    strategy: "Iron Condor",
+    profit: "+$620",
+    profitPct: "+1.1%",
+  },
+  {
+    id: 3,
+    ticker: "AAPL",
+    strategy: "Call Debit Spread",
+    profit: "-$210",
+    profitPct: "-0.4%",
+  },
+];
+---
+
+<Layout
+  title="Trade Journal"
+  description="Trade journal and option desk notes from Wander Tiger."
+  current="journal"
+>
+  <section class="nes-container is-dark with-title">
+    <p class="title">TRADE JOURNAL</p>
+    <h1 class="nes-text is-primary page-title hero-title">EXECUTED TRADES</h1>
+    <p class="nes-text hero-copy">
+      A structured log of trades executed by the option trading desk. Replace
+      these sample rows with exported trade journal data when ready.
+    </p>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">TABLE</p>
+    <div class="trade-table-wrap">
+      <table class="nes-table is-bordered is-dark trade-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ticker</th>
+            <th>Strategy</th>
+            <th>Profit</th>
+            <th>Profit %</th>
+          </tr>
+        </thead>
+        <tbody>
+          {trades.map((trade) => (
+            <tr>
+              <td data-label="#">{trade.id}</td>
+              <td data-label="Ticker">{trade.ticker}</td>
+              <td data-label="Strategy">{trade.strategy}</td>
+              <td data-label="Profit" class={trade.profit.startsWith("+") ? "trade-profit" : "trade-loss"}>
+                {trade.profit}
+              </td>
+              <td data-label="Profit %" class={trade.profitPct.startsWith("+") ? "trade-profit" : "trade-loss"}>
+                {trade.profitPct}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Layout>
