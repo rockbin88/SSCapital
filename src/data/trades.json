@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "ticker": "FTI",
+    "strategy": "Long LEAPS",
+    "quantity": 1,
+    "entryPrice": "7.15",
+    "exitPrice": "18.40",
+    "profit": "11.25",
+    "executedBy": "Builder"
+  },
+  {
+    "id": 2,
+    "ticker": "PLUG",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "1.54",
+    "exitPrice": "1.81",
+    "profit": "(0.27)",
+    "executedBy": "Builder"
+  },
+  {
+    "id": 3,
+    "ticker": "MRK",
+    "strategy": "Long LEAPS",
+    "quantity": 1,
+    "entryPrice": "16.20",
+    "exitPrice": "8.10",
+    "profit": "(8.10)",
+    "executedBy": "Builder"
+  },
+  {
+    "id": 4,
+    "ticker": "SNDK",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "4.20",
+    "exitPrice": "—",
+    "profit": "—",
+    "executedBy": "Builder"
+  },
+  {
+    "id": 5,
+    "ticker": "IWM",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "0.17",
+    "exitPrice": "0.16",
+    "profit": "0.01",
+    "executedBy": "Athena"
+  },
+  {
+    "id": 6,
+    "ticker": "QQQ",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "0.68",
+    "exitPrice": "0.35",
+    "profit": "0.33",
+    "executedBy": "Athena"
+  },
+  {
+    "id": 7,
+    "ticker": "QQQ",
+    "strategy": "Short CCS",
+    "quantity": 1,
+    "entryPrice": "0.93",
+    "exitPrice": "1.28",
+    "profit": "(0.35)",
+    "executedBy": "Sterling"
+  },
+  {
+    "id": 8,
+    "ticker": "FTNT",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "0.41",
+    "exitPrice": "0.10",
+    "profit": "0.31",
+    "executedBy": "Sterling"
+  },
+  {
+    "id": 9,
+    "ticker": "CSCO",
+    "strategy": "Short PCS",
+    "quantity": 1,
+    "entryPrice": "0.73",
+    "exitPrice": "0.53",
+    "profit": "0.20",
+    "executedBy": "Sterling"
+  },
+  {
+    "id": 10,
+    "ticker": "CRM",
+    "strategy": "Iron Condor",
+    "quantity": 1,
+    "entryPrice": "1.69",
+    "exitPrice": "1.72",
+    "profit": "(0.03)",
+    "executedBy": "Sterling"
+  }
+]

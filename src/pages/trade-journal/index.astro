@@ -1,29 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getTrades } from "../../lib/trades";
 
-const trades = [
-  {
-    id: 1,
-    ticker: "SPX",
-    strategy: "Put Credit Spread",
-    profit: "+$1,250",
-    profitPct: "+2.4%",
-  },
-  {
-    id: 2,
-    ticker: "QQQ",
-    strategy: "Iron Condor",
-    profit: "+$620",
-    profitPct: "+1.1%",
-  },
-  {
-    id: 3,
-    ticker: "AAPL",
-    strategy: "Call Debit Spread",
-    profit: "-$210",
-    profitPct: "-0.4%",
-  },
-];
+const trades = getTrades();
+
+const profitClass = (profit: string) => {
+  if (profit === "—") return "";
+  return profit.startsWith("(") ? "trade-loss" : "trade-profit";
+};
 ---
 
 <Layout
@@ -35,8 +19,7 @@ const trades = [
     <p class="title">TRADE JOURNAL</p>
     <h1 class="nes-text is-primary page-title hero-title">EXECUTED TRADES</h1>
     <p class="nes-text hero-copy">
-      A structured log of trades executed by the option trading desk. Replace
-      these sample rows with exported trade journal data when ready.
+      A structured log of trades executed by the option trading desk.
     </p>
   </section>
 
@@ -49,8 +32,11 @@ const trades = [
             <th>#</th>
             <th>Ticker</th>
             <th>Strategy</th>
+            <th>Qty</th>
+            <th>Entry</th>
+            <th>Exit</th>
             <th>Profit</th>
-            <th>Profit %</th>
+            <th>Executed by</th>
           </tr>
         </thead>
         <tbody>
@@ -59,12 +45,13 @@ const trades = [
               <td data-label="#">{trade.id}</td>
               <td data-label="Ticker">{trade.ticker}</td>
               <td data-label="Strategy">{trade.strategy}</td>
-              <td data-label="Profit" class={trade.profit.startsWith("+") ? "trade-profit" : "trade-loss"}>
+              <td data-label="Qty">{trade.quantity}</td>
+              <td data-label="Entry">{trade.entryPrice}</td>
+              <td data-label="Exit">{trade.exitPrice}</td>
+              <td data-label="Profit" class={profitClass(trade.profit)}>
                 {trade.profit}
               </td>
-              <td data-label="Profit %" class={trade.profitPct.startsWith("+") ? "trade-profit" : "trade-loss"}>
-                {trade.profitPct}
-              </td>
+              <td data-label="Executed by">{trade.executedBy}</td>
             </tr>
           ))}
         </tbody>

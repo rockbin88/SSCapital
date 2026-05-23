@@ -1,9 +1,11 @@
 import pnlJson from "../data/pnl.json";
 import pnlCsvRaw from "../data/pnl.csv?raw";
+import { getTradeStats } from "./trades";
 
 export type EquityPoint = {
   date: string;
   equity: number;
+  contribution?: number;
 };
 
 export type PnLSummary = {
@@ -27,6 +29,9 @@ function parseCsv(raw: string): EquityPoint[] {
   const equityIdx = header.findIndex(
     (h) => h === "equity" || h === "pnl" || h === "balance" || h === "value"
   );
+  const contributionIdx = header.findIndex(
+    (h) => h === "contribution" || h === "deposit" || h === "topup" || h === "top-up"
+  );
 
   if (dateIdx === -1 || equityIdx === -1) {
     throw new Error("pnl.csv must have columns: date, equity");
@@ -34,9 +39,13 @@ function parseCsv(raw: string): EquityPoint[] {
 
   return lines.slice(1).map((line) => {
     const cols = line.split(",").map((c) => c.trim());
+    const contribution =
+      contributionIdx === -1 ? 0 : Number(cols[contributionIdx].replace(/[$,]/g, ""));
+
     return {
       date: cols[dateIdx],
       equity: Number(cols[equityIdx].replace(/[$,]/g, "")),
+      contribution,
     };
   });
 }
@@ -54,7 +63,8 @@ function loadCsvCurve(): EquityPoint[] | null {
 function computeSummaryFromCurve(curve: EquityPoint[]): Pick<PnLSummary, "ytdReturnPct" | "ytdReturnUsd" | "asOf"> {
   const first = curve[0].equity;
   const last = curve[curve.length - 1].equity;
-  const ytdReturnUsd = last - first;
+  const contributions = curve.slice(1).reduce((sum, point) => sum + (point.contribution ?? 0), 0);
+  const ytdReturnUsd = last - first - contributions;
   const ytdReturnPct = first !== 0 ? (ytdReturnUsd / first) * 100 : 0;
   return {
     ytdReturnUsd,
@@ -73,7 +83,7 @@ export function getPnLData(): PnLData {
   const fromCsv = Boolean(csvCurve?.length);
 
   const summary: PnLSummary = {
-    winRatePct: base.summary.winRatePct ?? 0,
+    winRatePct: getTradeStats().winRatePct,
     ytdReturnUsd:
       fromCsv && computed
         ? computed.ytdReturnUsd
@@ -89,11 +99,18 @@ export function getPnLData(): PnLData {
 }
 
 export function formatUsd(value: number): string {
-  const sign = value >= 0 ? "+" : "";
-  return `${sign}$${Math.abs(value).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+  const sign = value > 0 ? "+" : value < 0 ? "-" : "";
+  return `${sign}$${Math.abs(value).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
 export function formatPct(value: number): string {
   const sign = value >= 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}%`;
+  return `${sign}${value.toFixed(2)}%`;
+}
+
+export function formatRate(value: number): string {
+  return `${value.toFixed(2)}%`;
 }

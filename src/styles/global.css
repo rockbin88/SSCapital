@@ -35,7 +35,7 @@ body {
 main,
 .site-header,
 .site-footer {
-  max-width: 56rem;
+  max-width: 64rem;
   margin: 0 auto;
 }
 
@@ -65,7 +65,7 @@ main {
 
 .site-footer p {
   color: var(--muted) !important;
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   margin: 0;
 }
 
@@ -91,7 +91,12 @@ main {
 }
 
 .wordmark-small {
-  font-size: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.brand-subtitle {
+  margin: 0.3rem 0 0 !important;
+  font-size: 0.58rem !important;
 }
 
 .wordmark-hero {
@@ -159,13 +164,13 @@ main {
 .research-list-excerpt,
 .agent-desc {
   color: var(--muted) !important;
-  font-size: 0.58rem !important;
-  line-height: 1.85 !important;
+  font-size: 0.66rem !important;
+  line-height: 1.9 !important;
 }
 
 .kicker {
   color: var(--muted) !important;
-  font-size: 0.45rem !important;
+  font-size: 0.55rem !important;
   line-height: 1.7 !important;
   margin: 0 0 0.75rem !important;
 }
@@ -201,7 +206,7 @@ main {
 .agent-name,
 .research-list-title {
   color: var(--orange-soft) !important;
-  font-size: 0.68rem !important;
+  font-size: 0.78rem !important;
   line-height: 1.6 !important;
   margin: 0 0 0.75rem !important;
 }
@@ -219,7 +224,7 @@ main {
   background: rgba(249, 115, 22, 0.12);
   border: 2px solid rgba(249, 115, 22, 0.55);
   color: var(--orange-soft);
-  font-size: 0.35rem;
+  font-size: 0.45rem;
   line-height: 1;
 }
 
@@ -250,14 +255,14 @@ main {
 
 .console-row p {
   color: var(--muted) !important;
-  font-size: 0.52rem !important;
+  font-size: 0.62rem !important;
   line-height: 1.8 !important;
   margin: 0 !important;
 }
 
 .console-index {
   color: var(--orange);
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   line-height: 1.8;
 }
 
@@ -282,28 +287,35 @@ main {
 .research-list-meta,
 .pagination-label {
   color: var(--muted) !important;
-  font-size: 0.43rem !important;
+  font-size: 0.52rem !important;
   line-height: 1.7 !important;
 }
 
 .metric-value {
-  font-size: 0.72rem !important;
+  font-size: 0.9rem !important;
   line-height: 1.4 !important;
   margin: 0 !important;
+}
+
+.metric-note {
+  color: var(--orange-soft) !important;
+  font-size: 0.52rem !important;
+  line-height: 1.7 !important;
+  margin: 0.75rem 0 0 !important;
 }
 
 .chart-wrap {
   background: var(--panel-deep);
   border: 3px solid rgba(245, 234, 216, 0.45);
-  padding: 0.75rem;
+  padding: 1rem;
   image-rendering: pixelated;
 }
 
 .equity-chart {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  height: clamp(18rem, 45vw, 28rem);
+  max-height: none;
 }
 
 .chart-grid {
@@ -327,6 +339,29 @@ main {
 .chart-dot {
   fill: var(--orange-soft);
   shape-rendering: crispEdges;
+}
+
+.chart-contribution-line {
+  stroke: var(--orange-soft);
+  stroke-dasharray: 4 4;
+  stroke-width: 3;
+  opacity: 0.95;
+  shape-rendering: crispEdges;
+}
+
+.chart-contribution-bg {
+  fill: var(--panel-deep);
+  stroke: var(--orange-soft);
+  stroke-width: 1;
+  opacity: 0.96;
+  shape-rendering: crispEdges;
+}
+
+.chart-contribution-label {
+  fill: var(--orange-soft);
+  font-family: "Press Start 2P", cursive;
+  font-size: 8px;
+  font-weight: 700;
 }
 
 .chart-label {
@@ -365,26 +400,63 @@ main {
 
 .agent-role {
   color: var(--orange) !important;
-  font-size: 0.48rem !important;
+  font-size: 0.58rem !important;
   line-height: 1.6 !important;
   margin: 0 0 0.5rem !important;
   text-transform: uppercase;
 }
 
 .trade-table-wrap {
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 .trade-table {
   width: 100%;
-  min-width: 38rem;
-  font-size: 0.48rem;
+  min-width: 0;
+  table-layout: fixed;
+  font-size: 0.5rem;
 }
 
 .trade-table th,
 .trade-table td {
   line-height: 1.7;
+  padding: 0.5rem 0.35rem !important;
   vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.trade-table th:nth-child(1),
+.trade-table td:nth-child(1) {
+  width: 5%;
+}
+
+.trade-table th:nth-child(2),
+.trade-table td:nth-child(2) {
+  width: 10%;
+}
+
+.trade-table th:nth-child(3),
+.trade-table td:nth-child(3) {
+  width: 19%;
+}
+
+.trade-table th:nth-child(4),
+.trade-table td:nth-child(4) {
+  width: 8%;
+}
+
+.trade-table th:nth-child(5),
+.trade-table td:nth-child(5),
+.trade-table th:nth-child(6),
+.trade-table td:nth-child(6),
+.trade-table th:nth-child(7),
+.trade-table td:nth-child(7) {
+  width: 11%;
+}
+
+.trade-table th:nth-child(8),
+.trade-table td:nth-child(8) {
+  width: 15%;
 }
 
 .trade-profit {
@@ -413,11 +485,11 @@ main {
   }
 
   .brand-link p:first-child {
-    font-size: 0.62rem;
+    font-size: 0.68rem;
   }
 
-  .brand-link p:last-child {
-    font-size: 0.38rem !important;
+  .brand-subtitle {
+    font-size: 0.45rem !important;
   }
 
   .nav-links {
@@ -428,7 +500,7 @@ main {
   .nav-links button {
     width: 100%;
     padding: 0.45rem 0.35rem;
-    font-size: 0.48rem;
+    font-size: 0.55rem;
   }
 
   .home-hero,
@@ -452,7 +524,7 @@ main {
   .compact-copy,
   .project-desc,
   .profile-copy {
-    font-size: 0.52rem !important;
+    font-size: 0.6rem !important;
   }
 
   .project-grid,
@@ -500,7 +572,7 @@ main {
     gap: 1rem;
     border: 0 !important;
     border-bottom: 2px solid rgba(245, 234, 216, 0.25) !important;
-    font-size: 0.45rem;
+    font-size: 0.58rem;
   }
 
   .trade-table td::before {
