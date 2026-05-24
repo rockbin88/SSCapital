@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const projects = [
+  {
+    title: "Option Trading Desk",
+    status: "LIVE",
+    badge: "is-success",
+    href: "/option-trading-desk",
+    description:
+      "An agentic options desk for risk-defined strategies, economic intelligence, PnL tracking, and trade journaling.",
+    stack: ["OPTIONS", "AGENTS", "PNL", "JOURNAL"],
+    links: [
+      { href: "/option-trading-desk", label: "Overview", primary: true },
+      { href: "/option-trading-desk#workflow", label: "Workflow" },
+      { href: "/trade-journal", label: "Trade journal" },
+    ],
+  },
+  {
+    title: "Personal Banker",
+    status: "WIP",
+    badge: "is-warning",
+    href: "/personal-banker",
+    description:
+      "A personal finance and banking assistant concept led by Minerva.",
+    stack: ["BANKING", "KIMI 2.6", "ASSISTANT"],
+    links: [
+      { href: "/personal-banker", label: "Overview", primary: true },
+      { href: "/personal-banker#infrastructure", label: "Infrastructure" },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Projects"
+  description="Wander Tiger projects across AI, agents, options, and personal finance."
+  current="projects"
+>
+  <section class="hero-panel nes-container is-dark with-title">
+    <p class="title">PROJECTS</p>
+    <p class="nes-text is-disabled kicker">AI JOURNEY MAP</p>
+    <h1 class="nes-text is-primary page-title hero-title">PROJECT INDEX</h1>
+    <p class="nes-text hero-copy">
+      Each project gets its own workspace for agents, workflows, infrastructure,
+      logs, and related notes. The top navigation stays simple as the list grows.
+    </p>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">ACTIVE BUILDS</p>
+    <div class="project-grid">
+      {projects.map((project) => (
+        <article class="project-card nes-container is-dark">
+          <div class="project-card-head">
+            <h2 class="nes-text is-warning project-title">{project.title}</h2>
+            <span class="nes-badge"><span class={project.badge}>{project.status}</span></span>
+          </div>
+          <p class="nes-text is-disabled project-desc">{project.description}</p>
+          <div class="tag-row">
+            {project.stack.map((tag) => (
+              <span class="mini-tag">{tag}</span>
+            ))}
+          </div>
+          <div class="hero-actions">
+            {project.links.map((link) => (
+              <a href={link.href} class="project-link">
+                <button type="button" class:list={["nes-btn", { "is-primary": link.primary }]}>
+                  {link.label}
+                </button>
+              </a>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

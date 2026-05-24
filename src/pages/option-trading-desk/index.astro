@@ -10,7 +10,7 @@ const agents = [
   {
     name: "ATHENA",
     role: "Equity index option trader",
-    description: "SPX, NDX, RUT structures. Index vol surfaces, dealer gamma, and macro event hedging.",
+    description: "SPY, QQQ, and IWM risk-defined strategies only. Prioritizes capital preservation, consistent probability-based returns, and strict pre-defined risk-to-reward ratios.",
     image: "/agents/athena-pixel.png",
     badgeClass: "is-primary",
   },
@@ -31,14 +31,35 @@ const agents = [
 ];
 
 const workflow = [
-  "Oikos frames macro regime, rates, catalysts, and consensus narrative.",
-  "Athena scans index volatility, skew, dealer positioning, and market structure.",
-  "Sterling studies single-name flow, event vol, and defined-risk equity setups.",
-  "Signals are converted into trade candidates, journal entries, and risk reviews.",
+  {
+    title: "Intelligence Phase",
+    description:
+      "Oikos crawls financial news and macro data at 09:00, compiles a structured economic brief, and pushes it to the traders' dashboard. Traders use the brief plus market data to form independent directional and volatility bias.",
+  },
+  {
+    title: "Capital & Risk Assessment",
+    description:
+      "At market open, traders check buying power, margin capacity, and exposure limits across SPY, QQQ, IWM, and sector risk. If capacity is tight, the desk reviews existing positions and closes or adjusts trades that no longer meet risk-defined criteria.",
+  },
+  {
+    title: "Selection & Approval Loop",
+    description:
+      "Traders scan for candidates using volatility, liquidity, and technical filters, then construct the best-fit risk-defined strategy. The Builder performs the final sanity check across Greeks, max risk, and risk-to-reward before approval.",
+  },
+  {
+    title: "Execution & Maintenance",
+    description:
+      "Approved orders are sent to the brokerage API. Filled orders are logged automatically in the trade journal, while unfilled orders enter a walk-down process that adjusts limit prices until execution or the market window closes.",
+  },
+  {
+    title: "Post-Trade Feedback Loop",
+    description:
+      "Each trader monitors their own book, adjusts stops or profit targets, and reviews filled and unfilled logs after the close. Lessons on bias alignment, fill quality, and screening quality are stored in agent memory for future refinement.",
+  },
 ];
 
 const infrastructure = [
-  "Agents are hosted on a Hetzner server.",
+  "Agents are hosted on a Hetzner CPX22 server with 2 x CPU and 4 GB RAM.",
   "The desk LLM is DeepSeek V4.",
   "Main communication channels are Slack and Telegram.",
   "Google Sheets / CSV exports update PnL, equity curve, and trade journal data.",
@@ -49,9 +70,9 @@ const infrastructure = [
 <Layout
   title="Option Trading Desk"
   description="Wander Tiger option trading desk project, agents, PnL, workflow, and trade journal."
-  current="optionDesk"
+  current="projects"
 >
-  <section class="hero-panel nes-container is-dark with-title">
+  <section id="overview" class="hero-panel nes-container is-dark with-title">
     <p class="title">PROJECT 01</p>
     <p class="nes-text is-disabled kicker">AGENTIC AI · OPTIONS · RESEARCH</p>
     <h1 class="nes-text is-primary page-title hero-title">OPTION TRADING DESK</h1>
@@ -60,18 +81,24 @@ const infrastructure = [
       options, macro context, PnL tracking, and post-trade learning.
     </p>
     <div class="hero-actions">
+      <a href="/projects" class="project-link">
+        <button type="button" class="nes-btn">All projects</button>
+      </a>
       <a href="/trade-journal" class="project-link">
         <button type="button" class="nes-btn is-warning">Open trade journal →</button>
       </a>
       <a href="#workflow" class="project-link">
         <button type="button" class="nes-btn">View workflow</button>
       </a>
+      <a href="#infrastructure" class="project-link">
+        <button type="button" class="nes-btn">Infrastructure</button>
+      </a>
     </div>
   </section>
 
   <YtdDashboard data={pnl} />
 
-  <section class="nes-container is-dark with-title section-gap">
+  <section id="infrastructure" class="nes-container is-dark with-title section-gap">
     <p class="title">AGENTS</p>
     <p class="nes-text compact-copy">
       Three AI agents run the desk: index vol, single-name options, and macro research.
@@ -89,7 +116,9 @@ const infrastructure = [
       {workflow.map((item, index) => (
         <div class="console-row">
           <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
-          <p class="nes-text is-disabled">{item}</p>
+          <p class="nes-text is-disabled">
+            <strong>{item.title}:</strong> {item.description}
+          </p>
         </div>
       ))}
     </div>

@@ -1,32 +1,61 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const projects = [
+const terminalActions = [
+  {
+    command: "view projects",
+    response: "Explore active AI builds, agents, infrastructure, and workflows.",
+    href: "/projects",
+    label: "Open projects",
+  },
+  {
+    command: "read journey",
+    response: "Follow the path from n8n workflows to OpenClaw agents.",
+    href: "/journey",
+    label: "Journey",
+  },
+  {
+    command: "meet builder",
+    response: "Read about the father, CFA, and finance operator behind the experiments.",
+    href: "/about",
+    label: "About",
+  },
+];
+
+const focusItems = [
   {
     title: "Option Trading Desk",
-    status: "LIVE",
-    badge: "is-success",
-    href: "/option-trading-desk",
     description:
-      "An agentic options desk for equity index and single-name option research, trade journaling, PnL tracking, and desk workflows.",
-    stack: ["ASTRO", "AGENTS", "PNL", "JOURNAL"],
+      "Live agentic options desk for risk-defined strategies, PnL tracking, and post-trade learning.",
+    href: "/option-trading-desk",
   },
   {
     title: "Personal Banker",
-    status: "WIP",
-    badge: "is-warning",
-    href: "/personal-banker",
     description:
-      "A personal finance and banking assistant concept. Placeholder for the next agentic AI project.",
-    stack: ["PLANNED", "FINANCE", "ASSISTANT"],
+      "Minerva-led personal finance assistant concept running on the same agent infrastructure.",
+    href: "/personal-banker",
   },
 ];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Wander Tiger",
+  url: "https://sscapital.pages.dev/",
+  description:
+    "Wander Tiger documents AI and agentic AI projects across trading, banking, and personal systems.",
+  creator: {
+    "@type": "Person",
+    name: "Qiyang How",
+  },
+};
 ---
 
 <Layout
   title="Home"
-  description="Wander Tiger documents AI and agentic AI projects."
+  description="Wander Tiger documents AI and agentic AI projects across trading, banking, and personal systems."
   current="home"
+  structuredData={structuredData}
 >
   <section class="hero-panel nes-container is-dark with-title">
     <p class="title">START</p>
@@ -38,33 +67,50 @@ const projects = [
           WANDER TIGER
         </h1>
         <p class="nes-text hero-copy">
-          A documentary of my AI and agentic AI journey: experiments, tools, workflows,
-          agents, mistakes, and useful things built along the way.
+          Documenting my AI and agentic AI journey across trading, banking,
+          personal systems, agents, workflows, mistakes, and useful things built
+          along the way.
         </p>
+        <div class="hero-actions">
+          <a href="/projects" class="project-link">
+            <button type="button" class="nes-btn is-primary">Explore projects</button>
+          </a>
+          <a href="/about" class="project-link">
+            <button type="button" class="nes-btn">About builder</button>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="nes-container is-dark with-title section-gap">
-    <p class="title">PROJECTS</p>
-    <div class="project-grid">
-      {projects.map((project) => (
-        <article class="project-card nes-container is-dark">
-          <div class="project-card-head">
-            <h2 class="nes-text is-warning project-title">{project.title}</h2>
-            <span class="nes-badge"><span class={project.badge}>{project.status}</span></span>
+    <p class="title">TERMINAL</p>
+    <div class="terminal-panel">
+      {terminalActions.map((action) => (
+        <a href={action.href} class="terminal-link">
+          <div class="terminal-row">
+            <span class="terminal-prompt">&gt;</span>
+            <div>
+              <p class="terminal-command">{action.command}</p>
+              <p class="nes-text is-disabled terminal-response">{action.response}</p>
+            </div>
+            <span class="terminal-action">{action.label}</span>
           </div>
-          <p class="nes-text is-disabled project-desc">{project.description}</p>
-          <div class="tag-row">
-            {project.stack.map((tag) => (
-              <span class="mini-tag">{tag}</span>
-            ))}
-          </div>
-          <a href={project.href} class="project-link">
-            <button type="button" class="nes-btn is-primary">Open project →</button>
-          </a>
-        </article>
+        </a>
       ))}
     </div>
   </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">CURRENT FOCUS</p>
+    <div class="focus-grid">
+      {focusItems.map((item) => (
+        <a href={item.href} class="focus-card project-link">
+          <h2 class="nes-text is-warning project-title">{item.title}</h2>
+          <p class="nes-text is-disabled project-desc">{item.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
 </Layout>

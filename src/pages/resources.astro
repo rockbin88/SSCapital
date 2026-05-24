@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const resourceGroups = [
+  {
+    title: "Infrastructure",
+    items: [
+      {
+        name: "Hetzner CPX22",
+        description:
+          "Low-cost VPS used for hosting agents. The current setup references 2 x CPU and 4 GB RAM.",
+        href: "https://www.hetzner.com/cloud/",
+      },
+      {
+        name: "Cloudflare Pages",
+        description:
+          "Static website hosting for Wander Tiger. Cheap, fast, and simple for Astro sites.",
+        href: "https://pages.cloudflare.com/",
+      },
+    ],
+  },
+  {
+    title: "Build Stack",
+    items: [
+      {
+        name: "Astro",
+        description:
+          "The static site framework behind Wander Tiger. Good for fast content pages and project logs.",
+        href: "https://astro.build/",
+      },
+      {
+        name: "NES.css",
+        description:
+          "The retro pixel-style CSS framework used for the site's visual direction.",
+        href: "https://nostalgic-css.github.io/NES.css/",
+      },
+      {
+        name: "Cursor",
+        description:
+          "AI coding environment used to design, edit, and maintain the website and agent documentation.",
+        href: "https://cursor.com/",
+      },
+    ],
+  },
+  {
+    title: "Agent Workflow",
+    items: [
+      {
+        name: "Slack",
+        description:
+          "Primary communication channel for agent alerts, reports, and workflow messages.",
+        href: "https://slack.com/",
+      },
+      {
+        name: "Telegram",
+        description:
+          "Secondary notification channel for lightweight alerts and agent updates.",
+        href: "https://telegram.org/",
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Resources"
+  description="Tools and resources used to build Wander Tiger, AI agents, workflows, and static websites."
+  current="none"
+>
+  <section class="hero-panel nes-container is-dark with-title">
+    <p class="title">RESOURCES</p>
+    <p class="nes-text is-disabled kicker">TOOLS · STACK · REFERENCES</p>
+    <h1 class="nes-text is-primary page-title hero-title">BUILD NOTES & TOOLS</h1>
+    <p class="nes-text hero-copy">
+      A curated list of tools used or evaluated while building Wander Tiger,
+      the Option Trading Desk, and the Personal Banker project.
+    </p>
+    <p class="nes-text is-disabled compact-copy">
+      Some links may become affiliate links in the future. I only list tools
+      that are relevant to the projects documented on this site.
+    </p>
+  </section>
+
+  {resourceGroups.map((group) => (
+    <section class="nes-container is-dark with-title section-gap">
+      <p class="title">{group.title.toUpperCase()}</p>
+      <div class="project-grid">
+        {group.items.map((item) => (
+          <article class="project-card nes-container is-dark">
+            <h2 class="nes-text is-warning project-title">{item.name}</h2>
+            <p class="nes-text is-disabled project-desc">{item.description}</p>
+            <a href={item.href} class="project-link" target="_blank" rel="nofollow sponsored noopener noreferrer">
+              <button type="button" class="nes-btn">Visit resource</button>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>

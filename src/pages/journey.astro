@@ -1,0 +1,116 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const timeline = [
+  {
+    title: "n8n on Pikapods",
+    description:
+      "The first setup used n8n hosted on Pikapods for option and stock screening, research workflows, and weekend research preparation. Automation helped, but human review and manual weekend work were still required.",
+  },
+  {
+    title: "Manual Bottleneck",
+    description:
+      "With two young kids, the weekend operating burden became difficult to sustain. The problem was no longer just automation. The workflow needed more independent reasoning, monitoring, and execution support.",
+  },
+  {
+    title: "OpenClaw Experiment",
+    description:
+      "When OpenClaw started gaining momentum in China, I began experimenting with it locally on my M1 Pro MacBook. This marked the shift from low-code automation toward agentic AI workflows.",
+  },
+  {
+    title: "Athena on DigitalOcean",
+    description:
+      "Athena became the first OpenClaw agent. She was initially hosted on a DigitalOcean Droplet and focused on option trading, screening, and risk-defined strategy workflows.",
+  },
+  {
+    title: "More Agents on Hetzner",
+    description:
+      "As my confidence and knowledge of OpenClaw grew, I started building more agents. Minerva, the Personal Banker agent, is hosted on Hetzner. I considered Alibaba Cloud, but the account opening process was too troublesome to complete.",
+  },
+];
+
+const dataSources = [
+  "Started with yfinance for market data experiments.",
+  "Moved to Marketdata.app for options and market data workflows.",
+  "Also uses Alpha Vantage API as part of the data stack.",
+  "Stock screening started on FinViz and recently moved to TradingView.",
+];
+
+const lessons = [
+  "Automation is useful, but manual review can still become the real bottleneck.",
+  "Agentic systems become more valuable when they reduce weekend maintenance, not just clicking.",
+  "Hosting choices matter: local machines are good for experiments, cloud servers are better for always-on agents.",
+  "Data sources evolve as the project moves from prototypes toward operating workflows.",
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "From n8n Workflows to OpenClaw Agents",
+  description:
+    "The Wander Tiger journey from n8n on Pikapods to OpenClaw agents hosted on DigitalOcean and Hetzner.",
+  author: {
+    "@type": "Person",
+    name: "Qiyang How",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Wander Tiger",
+  },
+};
+---
+
+<Layout
+  title="Journey"
+  description="The Wander Tiger journey from n8n automation on Pikapods to OpenClaw agents on DigitalOcean and Hetzner."
+  current="none"
+  structuredData={structuredData}
+>
+  <section class="hero-panel nes-container is-dark with-title">
+    <p class="title">JOURNEY</p>
+    <p class="nes-text is-disabled kicker">FROM WORKFLOWS TO AGENTS</p>
+    <h1 class="nes-text is-primary page-title hero-title">FROM N8N TO OPENCLAW</h1>
+    <p class="nes-text hero-copy">
+      Wander Tiger started as an attempt to reduce weekend research work with
+      automation. It gradually evolved into a set of agentic AI experiments
+      across trading, research, banking, data sources, and cloud infrastructure.
+    </p>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">TIMELINE</p>
+    <div class="console-list">
+      {timeline.map((item, index) => (
+        <div class="console-row">
+          <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
+          <p class="nes-text is-disabled">
+            <strong>{item.title}:</strong> {item.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">DATA SOURCES</p>
+    <div class="console-list">
+      {dataSources.map((item, index) => (
+        <div class="console-row">
+          <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
+          <p class="nes-text is-disabled">{item}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">LESSONS</p>
+    <div class="project-grid">
+      {lessons.map((lesson) => (
+        <article class="project-card nes-container is-dark">
+          <p class="nes-text is-disabled project-desc">{lesson}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

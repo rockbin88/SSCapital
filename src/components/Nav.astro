@@ -1,15 +1,14 @@
 ---
 interface Props {
-  current: "home" | "about" | "optionDesk" | "personalBanker" | "journal" | "research";
+  current: "home" | "projects" | "about" | "none";
 }
 
 const { current } = Astro.props;
 
 const links = [
   { id: "home" as const, href: "/", label: "Home" },
+  { id: "projects" as const, href: "/projects", label: "Projects" },
   { id: "about" as const, href: "/about", label: "About" },
-  { id: "optionDesk" as const, href: "/option-trading-desk", label: "Option Desk" },
-  { id: "journal" as const, href: "/trade-journal", label: "Journal" },
 ];
 ---
 

@@ -1,22 +1,65 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AgentCard from "../../components/AgentCard.astro";
+
+const minerva = {
+  name: "MINERVA",
+  role: "Personal banker",
+  description: "A personal finance assistant concept for banking workflows, spending context, and household money decisions.",
+  image: "/agents/minerva-pixel.png",
+  badgeClass: "is-primary",
+};
+
+const infrastructure = [
+  "Minerva is hosted on a Hetzner CPX22 server with 2 x CPU and 4 GB RAM.",
+  "The personal banker LLM is Kimi 2.6.",
+  "Main communication channels are Slack and Telegram.",
+];
 ---
 
 <Layout
   title="Personal Banker"
   description="Wander Tiger personal banker AI project."
-  current="personalBanker"
+  current="projects"
 >
-  <section class="hero-panel nes-container is-dark with-title">
+  <section id="overview" class="hero-panel nes-container is-dark with-title">
     <p class="title">PROJECT 02</p>
     <p class="nes-text is-disabled kicker">PERSONAL FINANCE · AGENTIC AI</p>
     <h1 class="nes-text is-primary page-title hero-title">PERSONAL BANKER</h1>
     <p class="nes-text hero-copy">
       Placeholder for the next project.
     </p>
+    <div class="hero-actions">
+      <a href="/projects" class="project-link">
+        <button type="button" class="nes-btn">All projects</button>
+      </a>
+      <a href="#infrastructure" class="project-link">
+        <button type="button" class="nes-btn">Infrastructure</button>
+      </a>
+      <a href="#status" class="project-link">
+        <button type="button" class="nes-btn is-warning">Status</button>
+      </a>
+    </div>
   </section>
 
-  <section class="nes-container is-dark with-title section-gap empty-panel">
+  <section id="infrastructure" class="nes-container is-dark with-title section-gap">
+    <p class="title">AGENT</p>
+    <AgentCard {...minerva} />
+  </section>
+
+  <section class="nes-container is-dark with-title section-gap">
+    <p class="title">INFRASTRUCTURE</p>
+    <div class="console-list">
+      {infrastructure.map((item, index) => (
+        <div class="console-row">
+          <span class="console-index">{String(index + 1).padStart(2, "0")}</span>
+          <p class="nes-text is-disabled">{item}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="status" class="nes-container is-dark with-title section-gap empty-panel">
     <p class="title">STATUS</p>
     <p class="nes-text is-disabled compact-copy">
       Blank for now. This page will document the personal banker concept,

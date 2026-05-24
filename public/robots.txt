@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sscapital.pages.dev/sitemap.xml
